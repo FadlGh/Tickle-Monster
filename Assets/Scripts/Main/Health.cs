@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterDamage : MonoBehaviour
+public class Health : MonoBehaviour
 {
     [SerializeField] private int maxHealth;
     private int health;
@@ -11,6 +11,10 @@ public class MonsterDamage : MonoBehaviour
     {
         health = maxHealth;
         print(health);
+    }
+
+    void Update()
+    {
         if (health <= 0)
         {
             print("ded");

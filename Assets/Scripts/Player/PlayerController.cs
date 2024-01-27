@@ -20,14 +20,14 @@ public class PlayerController : MonoBehaviour
 
     [Header("Enemy Settings")]
     [SerializeField] private LayerMask enemyLayer;
-    [SerializeField] private MonsterDamage monster;
+    [SerializeField] private Health monster;
 
     private float jumpBufferTimeCounter;
 
     private float coyoteTimeCounter;
 
     private bool canDash = true;
-    public bool isDashing { private set; get; }
+    public bool isDashing;
     private const float dashingCoolDown = 1f;
 
     private bool isFacingRight = true;
