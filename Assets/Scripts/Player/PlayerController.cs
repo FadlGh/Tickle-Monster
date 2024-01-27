@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashingPower;
     [SerializeField] private float dashingTime = 0.2f;
 
+    [Header("Enemy Settings")]
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private MonsterDamage monster;
+
     private float jumpBufferTimeCounter;
 
     private float coyoteTimeCounter;
@@ -76,26 +80,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity += 1f * Physics2D.gravity.y * Time.deltaTime * Vector2.up;
         }
 
-        if (rb.velocity.y > 0f)
-        {
-            am.SetBool("IsFalling", false);
-            am.SetBool("IsJumping", true);
-        }
-        else if (rb.velocity.y < -2f)
-        {
-            am.SetBool("IsFalling", true);
-            am.SetBool("IsJumping", false);
-        }
-        else
-        {
-            am.SetBool("IsFalling", false);
-            am.SetBool("IsJumping", false);
-        }
-
         if (Input.GetKeyDown(KeyCode.LeftShift) & canDash)
         {
             CreateDust();
             StartCoroutine(Dash());
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) & CanAttack())
+        {
+            monster.damage(1);
         }
 
         Flip();
@@ -114,6 +107,10 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.02f, groundLayer);
+    }
+    private bool CanAttack()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, 0.02f, enemyLayer);
     }
 
     private void Flip()
