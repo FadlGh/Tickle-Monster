@@ -6,10 +6,12 @@ public class MonsterAttack : MonoBehaviour
     [SerializeField] private GameObject flame;
     [SerializeField] private PlayerController player;
     private int i = 0;
+    private int j = 0;
 
     void Start()
     {
         StartCoroutine(RepeatLaunch(2f));
+        StartCoroutine(PlaySounds(7f));
     }
 
     IEnumerator RepeatLaunch(float delay)
@@ -35,6 +37,32 @@ public class MonsterAttack : MonoBehaviour
                     break;
                 case 3:
                     LaunchFlames(1, 12, 50);
+                    break;
+
+            }
+        }
+    }
+
+    IEnumerator PlaySounds(float delay)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(delay);
+            j = Random.Range(0, 4);
+
+            switch (j)
+            {
+                case 0:
+                    AudioManager.instance.Play("No");
+                    break;
+                case 1:
+                    AudioManager.instance.Play("No");
+                    break;
+                case 2:
+                    AudioManager.instance.Play("Stop Tickling Me");
+                    break;
+                case 3:
+                    AudioManager.instance.Play("Help Me");
                     break;
 
             }
