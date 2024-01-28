@@ -4,38 +4,39 @@ using UnityEngine;
 public class MonsterAttack : MonoBehaviour
 {
     [SerializeField] private GameObject flame;
+    [SerializeField] private PlayerController player;
     private int i = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(RepeatLaunch(2f));
-        print((0 + 1) % 2);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Other code if needed
     }
 
     IEnumerator RepeatLaunch(float delay)
     {
-        while (true)  // Infinite loop to keep launching every 2 seconds
+        while (true)
         {
             yield return new WaitForSeconds(delay);
-
-            // Increment i and reset to 0 if it reaches the maximum case
-            i = (i + 1) % 2;
+            // sound
+            if (player.CanAttack()) i = Random.Range(1, 4);
+            else i = Random.Range(0, 4);
 
             switch (i)
             {
                 case 0:
-                    LaunchFlames(1, 10, 50);
-                    break;
-                case 1:
                     LaunchFlames(1, 4, 150);
                     break;
+                case 1:
+                    LaunchFlames(1, 10, 50);
+                    break;
+                case 2:
+                    LaunchFlames(1, 10, 50);
+                    LaunchFlames(1, 4, 150);
+                    break;
+                case 3:
+                    LaunchFlames(1, 12, 50);
+                    break;
+
             }
         }
     }

@@ -4,23 +4,12 @@ using UnityEngine;
 
 public class Flame : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<Health>().damage(1);
+            Destroy(this.gameObject);
         }
     }
 }

@@ -108,9 +108,10 @@ public class PlayerController : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.02f, groundLayer);
     }
-    private bool CanAttack()
+
+    public bool CanAttack()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.02f, enemyLayer);
+        return Physics2D.OverlapCircle(transform.position, 3f, enemyLayer);
     }
 
     private void Flip()
@@ -146,6 +147,15 @@ public class PlayerController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(groundCheck.position, 0.02f);
+        Gizmos.DrawWireSphere(transform.position, 3f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+       if (collision.CompareTag("Monster"))
+       {
+            GetComponent<Health>().damage(1);
+            //sound
+       }
     }
 }
