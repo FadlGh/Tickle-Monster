@@ -19,9 +19,11 @@ public class MonsterAttack : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(delay);
-            // sound
-            if (player.CanAttack()) i = Random.Range(1, 4);
-            else i = Random.Range(0, 4);
+
+            if (player == null) { break; }
+
+            if (player.CanAttack()) { i = Random.Range(1, 4); }
+            else {i = Random.Range(0, 4);}
 
             switch (i)
             {

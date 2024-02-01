@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Flame : MonoBehaviour
 {
+    void Start()
+    {
+        Destroy(this.gameObject, 5f); 
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

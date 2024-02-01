@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [Header("Enemy Settings")]
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private Health monster;
+    [SerializeField] private float attackTime = 2f;
+
+    private float attackTimeCounter;
 
     private float jumpBufferTimeCounter;
 
@@ -89,6 +92,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) & CanAttack())
         {
             monster.damage(1);
+            attackTimeCounter = attackTime;
+        }
+        else
+        {
+            attackTimeCounter -= Time.deltaTime;
         }
 
         Flip();
@@ -111,7 +119,7 @@ public class PlayerController : MonoBehaviour
 
     public bool CanAttack()
     {
-        return Physics2D.OverlapCircle(transform.position, 3f, enemyLayer);
+        return Physics2D.OverlapCircle(transform.position, 3f, enemyLayer) & attackTimeCounter <= 0;
     }
 
     private void Flip()
@@ -155,7 +163,6 @@ public class PlayerController : MonoBehaviour
        if (collision.CompareTag("Monster"))
        {
             GetComponent<Health>().damage(1);
-            //sound
        }
     }
 }
